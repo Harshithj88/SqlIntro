@@ -27,17 +27,18 @@ namespace SqlIntro
             {
                 conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "select ProductID,Name,ProductNumber from product where ListPrice>500 order by SafetyStockLevel asc";
+                cmd.CommandText = "select ModifiedDate from product";
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     yield return new Product
                     {
-                        ProductID = (int)dr["ProductID"],
-                        Name = dr["Name"].ToString(),
-                        ProductNumber = dr["ProductNumber"].ToString(),
+                        //ProductID = (int)dr["ProductID"],
+                        //Name = dr["Name"].ToString(),
+                        //ProductNumber = dr["ProductNumber"].ToString(),
                         //ListPrice = (double)dr["ListPrice"],
                         //SafetyStockLevel = (int)dr["SafetyStockLevel"]
+                        ModifiedDate = (DateTime)dr["ModifiedDate"],
                     };
                 }
             }
