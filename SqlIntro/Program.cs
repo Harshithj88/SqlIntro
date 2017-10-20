@@ -11,7 +11,7 @@ namespace SqlIntro
             var repo = new ProductRepository(connectionString);
             foreach (var prod in repo.GetProducts().Take(1))
             {
-                Console.WriteLine("Modified Date:" + " " + prod.ModifiedDate.DayOfWeek);
+                Console.WriteLine("Modified Date:" + " " + prod.ModifiedDate.ToLongDateString());
             }
 
            
