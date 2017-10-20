@@ -25,12 +25,20 @@ namespace SqlIntro
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
+                conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = ""; //TODO:  Write a SELECT statement that gets all products
+                cmd.CommandText = "select ProductID,Name,ProductNumber from product where ListPrice>500 order by SafetyStockLevel asc";
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    yield return new Product { Name = dr["Name"].ToString() };
+                    yield return new Product
+                    {
+                        ProductID = (int)dr["ProductID"],
+                        Name = dr["Name"].ToString(),
+                        ProductNumber = dr["ProductNumber"].ToString(),
+                        //ListPrice = (double)dr["ListPrice"],
+                        //SafetyStockLevel = (int)dr["SafetyStockLevel"]
+                    };
                 }
             }
         }
