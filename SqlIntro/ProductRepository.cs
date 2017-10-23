@@ -43,7 +43,6 @@ namespace SqlIntro
                 }
             }
         }
-
         /// <summary>
         /// Deletes a Product from the database
         /// </summary>
@@ -52,8 +51,9 @@ namespace SqlIntro
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
+                conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = ""; //Write a delete statement that deletes by id
+                cmd.CommandText = "delete from product where productid= " +id; //Write a delete statement that deletes by id
                 cmd.ExecuteNonQuery();
             }
         }
@@ -67,10 +67,11 @@ namespace SqlIntro
             //More on this in the future...  Nothing to do here..
             using (var conn = new MySqlConnection(_connectionString))
             {
+                conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "update product set name = @name where id = @id";
-                cmd.Parameters.AddWithValue("@name", prod.Name);
-                cmd.Parameters.AddWithValue("@id", prod.Id);
+                cmd.CommandText = "update product set name = 'Jake' where productid = 316";
+                cmd.Parameters.AddWithValue("Jake", prod.Name);
+                cmd.Parameters.AddWithValue("316", prod.ProductId);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -82,9 +83,15 @@ namespace SqlIntro
         {
             using (var conn = new MySqlConnection(_connectionString))
             {
+                conn.Open();
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT into product (name) values(@name)";
-                cmd.Parameters.AddWithValue("@name", prod.Name);
+                cmd.CommandText = "insert into product(Name,ProductNumber,Color,SafetyStockLevel,ReorderPoint,ListPrice) values('John Dane', 'BA-2325', 'Blue', '2234', '854', '741.23')";
+                cmd.Parameters.AddWithValue("John Dane", prod.Name);
+                cmd.Parameters.AddWithValue("BA-2325", prod.ProductNumber);
+                cmd.Parameters.AddWithValue("Blue", prod.Color);
+                cmd.Parameters.AddWithValue("2234", prod.SafetyStockLevel);
+                cmd.Parameters.AddWithValue("854", prod.ReorderPoint);
+                cmd.Parameters.AddWithValue("741.23", prod.ListPrice);
                 cmd.ExecuteNonQuery();
             }
         }
