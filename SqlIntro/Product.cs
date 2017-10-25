@@ -22,6 +22,10 @@ namespace SqlIntro
         {
             RowGuid = Guid.NewGuid();
         }
+        public static int Litres(double time)
+        {
+            return (int) (time * 0.5);
 
+        }
     }
 }
